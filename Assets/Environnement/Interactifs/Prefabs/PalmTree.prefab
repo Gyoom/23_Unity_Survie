@@ -142,15 +142,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41754a8b7d21ae144aa50ba714870a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HaverstableItems:
-  - itemData: {fileID: 11400000, guid: 3b59c03679d72854ab32352d0947a591, type: 2}
-    dropChance: 100
-  - itemData: {fileID: 11400000, guid: 3b59c03679d72854ab32352d0947a591, type: 2}
-    dropChance: 70
-  - itemData: {fileID: 11400000, guid: 3b59c03679d72854ab32352d0947a591, type: 2}
-    dropChance: 40
-  - itemData: {fileID: 11400000, guid: 3b59c03679d72854ab32352d0947a591, type: 2}
-    dropChance: 10
-  disableKinematicOnharvest: 1
-  destroyDelay: 5
-  tool: 1
+  harvestableData: {fileID: 11400000, guid: a48118906fdc50d4da9b783af73cf8da, type: 2}

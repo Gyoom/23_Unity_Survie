@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2abfeaccd1ea2440a795d717a914f76, type: 3}
+  m_Name: IronPantsData
+  m_EditorClassIdentifier: 
+  itemName: "Jambi\xE8res en fer"
+  description: "Il se passe quoi quand vous avez une envie pressante \xE0 votre avis
+    ?"
+  icon: {fileID: 21300000, guid: 869a1d3333f2fad42a630f0686bcd047, type: 3}
+  prefab: {fileID: 8012410761064322624, guid: de81c9a7901335f438cd3041a70c8fe0, type: 3}
+  stackable: 0
+  MaxStack: 0
+  visualEquipement: {fileID: 5052880981483935162, guid: a41c68991eced454f94a03b0ce738b23, type: 3}
+  equipementType: 3
+  armorPoints: 10

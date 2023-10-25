@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Item
   - Harvestable
+  - AI
+  - Point
+  - Floor
+  - Wall
+  - Stairs
+  - Terrain
   layers:
   - Default
   - TransparentFX
@@ -15,7 +21,7 @@ TagManager:
   - UI
   - Item
   - Harvestable
-  - 
+  - AI
   - 
   - 
   - 

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2abfeaccd1ea2440a795d717a914f76, type: 3}
+  m_Name: IronGlovesData
+  m_EditorClassIdentifier: 
+  itemName: Gants en fer
+  description: "100% certifi\xE9 pour la broderie"
+  icon: {fileID: 21300000, guid: 3f3f612e2e18b4742ba62c1d294abdc6, type: 3}
+  prefab: {fileID: 428463431061016994, guid: bc8cbc405fd9cd44b9b5f759b44f43d3, type: 3}
+  stackable: 0
+  MaxStack: 0
+  visualEquipement: {fileID: 6586849446893873410, guid: d875d71292e86e34ea321b033a73f23e, type: 3}
+  equipementType: 2
+  armorPoints: 10

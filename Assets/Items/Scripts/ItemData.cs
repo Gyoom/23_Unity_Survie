@@ -2,30 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "My Game/Item Data")]
-public class ItemData : ScriptableObject
+public abstract class ItemData : ScriptableObject 
 {
+    [Header("DATA")] 
     public string itemName;
     public string description;
-    public Sprite visual;
+    public Sprite icon;
     public GameObject prefab;
-    public ItemType itemType;
-    public EquipementType equipementType;
-}
-
-public enum ItemType
-{
-    Ressource,
-    Equipement,
-    Consumable
-}
-
-public enum EquipementType 
-{
-    none,
-    Head,
-    Chest,
-    Hands,
-    Legs,
-    Feets
+    public bool stackable;
+    public int MaxStack;
 }

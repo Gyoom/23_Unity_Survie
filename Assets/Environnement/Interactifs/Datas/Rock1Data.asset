@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315064beffd8400498b15edd3342dbc8, type: 3}
+  m_Name: Rock1Data
+  m_EditorClassIdentifier: 
+  harvestablePrefab: {fileID: 1551547496685501196, guid: 849a5190185df9748a5e6de282d461b4, type: 3}
+  dropItems:
+  - itemData: {fileID: 11400000, guid: dc03bbe2a8d251245b2897f19c9cb12e, type: 2}
+    dropChance: 100
+  - itemData: {fileID: 11400000, guid: dc03bbe2a8d251245b2897f19c9cb12e, type: 2}
+    dropChance: 80
+  - itemData: {fileID: 11400000, guid: dc03bbe2a8d251245b2897f19c9cb12e, type: 2}
+    dropChance: 60
+  - itemData: {fileID: 11400000, guid: dc03bbe2a8d251245b2897f19c9cb12e, type: 2}
+    dropChance: 40
+  disableKinematicOnharvest: 0
+  destroyDelay: 0
+  toolData: {fileID: 11400000, guid: fa85d16bcca0de14199db5c168efe1a4, type: 2}

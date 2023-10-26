@@ -25,14 +25,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062258482704142950}
-  m_LocalRotation: {x: -0, y: -0.99968976, z: -0, w: -0.024908297}
+  m_LocalRotation: {x: 0, y: 0.99968964, z: 0, w: 0.024912063}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999976, y: 1, z: 0.99999976}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 177.145, z: 0}
 --- !u!137 &3783394409570808392
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -97,8 +97,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.26453483, y: -0.0643382, z: -0.00007355213}
-    m_Extent: {x: 0.33124912, y: 0.27240586, z: 0.80939645}
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 1.01, y: 0.6, z: 1.29}
   m_DirtyAABB: 0
 --- !u!114 &7782205621479769176
 MonoBehaviour:

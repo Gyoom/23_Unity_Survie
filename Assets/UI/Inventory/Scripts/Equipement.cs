@@ -53,7 +53,7 @@ public class Equipement : MonoBehaviour
         Inventory.instance.RefreshContent();
 
         // Remove actualWeapon
-        if (GetCurrentEquipementVusual(itemToEquip.equipementType))
+        if (GetCurrentEquipementVisual(itemToEquip.equipementType))
             DisablePreviousEquipedEquipement(itemToEquip);
         
         // Remove defaut Player visuals
@@ -119,7 +119,7 @@ public class Equipement : MonoBehaviour
 
         playerAudioSource.PlayOneShot(gearupSound);
 
-        GameObject currentEquipementVisual = GetCurrentEquipementVusual(equipementTypeToDesequip);
+        GameObject currentEquipementVisual = GetCurrentEquipementVisual(equipementTypeToDesequip);
         EquipementData currentEquipementData = (EquipementData) currentEquipementVisual.GetComponent<Item>().itemData;
 
         // Clear Equipement slot
@@ -152,7 +152,7 @@ public class Equipement : MonoBehaviour
             Button slotButton = equipementLibrary.GetEquipementSlotButtom(equipementType);                    
             slotButton.onClick.RemoveAllListeners();
             slotButton.onClick.AddListener(delegate { DesquipEquipement(equipementType); });
-            slotButton.gameObject.SetActive(GetCurrentEquipementVusual(equipementType) != null);
+            slotButton.gameObject.SetActive(GetCurrentEquipementVisual(equipementType) != null);
         }
     }
 
@@ -176,7 +176,7 @@ public class Equipement : MonoBehaviour
 
     // Accesser Methods to dictionnary
 
-    public GameObject GetCurrentEquipementVusual(EquipementType equipementType)
+    public GameObject GetCurrentEquipementVisual(EquipementType equipementType)
     {
         return equipementTypeToCurrentEquipements.Where(e => e.type == equipementType).First().visualEquiped;
     }

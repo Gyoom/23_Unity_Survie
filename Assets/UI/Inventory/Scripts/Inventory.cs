@@ -38,10 +38,11 @@ public class Inventory : MonoBehaviour
 
     private bool inventoryIsOpen = false;
 
-    const int INVENTORY_SIZE = 24;
+    private int INVENTORY_SIZE = 24;
 
     void Awake() {
         instance = this;
+        INVENTORY_SIZE = inventorySlotParent.transform.childCount;
     }
 
     void Start() 

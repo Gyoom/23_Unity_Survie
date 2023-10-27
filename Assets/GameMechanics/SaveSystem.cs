@@ -56,12 +56,12 @@ public class SaveSystem : MonoBehaviour
             playerRotation = playerTransform.rotation,
 
             inventoryContent = Inventory.instance.getContent(),
-            equipedHeadItem =   playerEquipement.GetCurrentEquipementVusual(EquipementType.Head).GetComponent<Item>().itemData,
-            equipedChestItem =  playerEquipement.GetCurrentEquipementVusual(EquipementType.Chest).GetComponent<Item>().itemData,
-            equipedHandsItem =  playerEquipement.GetCurrentEquipementVusual(EquipementType.Hands).GetComponent<Item>().itemData,
-            equipedLegsItem =   playerEquipement.GetCurrentEquipementVusual(EquipementType.Legs).GetComponent<Item>().itemData,
-            equipedFeetsItem =  playerEquipement.GetCurrentEquipementVusual(EquipementType.Feets).GetComponent<Item>().itemData,
-            equipedWeaponItem = playerEquipement.GetCurrentEquipementVusual(EquipementType.Weapon).GetComponent<Item>().itemData,
+            equipedHeadItem =   playerEquipement.GetCurrentEquipementVisual(EquipementType.Head).GetComponent<Item>().itemData,
+            equipedChestItem =  playerEquipement.GetCurrentEquipementVisual(EquipementType.Chest).GetComponent<Item>().itemData,
+            equipedHandsItem =  playerEquipement.GetCurrentEquipementVisual(EquipementType.Hands).GetComponent<Item>().itemData,
+            equipedLegsItem =   playerEquipement.GetCurrentEquipementVisual(EquipementType.Legs).GetComponent<Item>().itemData,
+            equipedFeetsItem =  playerEquipement.GetCurrentEquipementVisual(EquipementType.Feets).GetComponent<Item>().itemData,
+            equipedWeaponItem = playerEquipement.GetCurrentEquipementVisual(EquipementType.Weapon).GetComponent<Item>().itemData,
 
             currentHealth = playerStats.currentHealth,
             currentHunger = playerStats.currentHunger,

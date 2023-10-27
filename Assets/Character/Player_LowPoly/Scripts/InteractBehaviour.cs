@@ -125,7 +125,7 @@ public class InteractBehaviour : MonoBehaviour
     private void EnabledToolGameObject(bool enabled = true) 
     {
         // activer / desactiver l'arme équipée le temps de la récolte 
-        GameObject actualWeapon = equipementSystem.GetCurrentEquipementVusual(EquipementType.Weapon);
+        GameObject actualWeapon = equipementSystem.GetCurrentEquipementVisual(EquipementType.Weapon);
         if (actualWeapon != null)
         {
             actualWeapon.SetActive(!enabled);

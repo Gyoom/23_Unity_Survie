@@ -30,6 +30,8 @@ public class BuildingRequiredElement : MonoBehaviour
 
     public void CheckHasRessourcesToBuild()
     {
+        Debug.Log(Inventory.instance);
+        
         ItemInInventory[] ressourcesrequiredInInventory = Inventory.instance.getContent().Where(elem => elem.itemData == ressource.itemData).ToArray();
         int totalRequiredItemQuantityInInventory = 0;
         foreach(ItemInInventory item in ressourcesrequiredInInventory)

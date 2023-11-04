@@ -31,7 +31,7 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
     [SerializeField]
     private AudioClip buildSound;
 
-    public bool cheatBuild = false;
+    public bool buildCheat = false;
 
     [SerializeField]
     private Transform parentSceneStructure;
@@ -104,7 +104,7 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
             parentSceneStructure
         );
 
-        if (!cheatBuild)
+        if (!buildCheat)
         {
             ActionInventory.instance.RemoveItem(currentStructureData);
         }

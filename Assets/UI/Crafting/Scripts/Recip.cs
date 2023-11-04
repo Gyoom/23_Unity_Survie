@@ -26,8 +26,11 @@ public class Recip : MonoBehaviour
 
     private RecipData currentRecip;
 
-    public void Configure(RecipData recip) 
+    private bool isCheatActive = false;
+
+    public void Configure(RecipData recip, bool newCheatValue) 
     {
+        isCheatActive = newCheatValue;
         currentRecip = recip;
         // initialise le slot de l'item à crafter
         craftableItemImage.sprite = recip.craftableItem.icon;
@@ -55,7 +58,7 @@ public class Recip : MonoBehaviour
                 totalRequiredItemQuantityInInventory += itemInInventory.count;
             }
 
-            if (totalRequiredItemQuantityInInventory >= itemInRecip.count)
+            if ((totalRequiredItemQuantityInInventory >= itemInRecip.count) || isCheatActive)
             {
                 requiredItemImage.color = availableColor;
             } 
@@ -94,13 +97,15 @@ public class Recip : MonoBehaviour
     public void CraftItem()
     {
         // le check se fait à l'activation/désactivation du bouton craft
-        
-        foreach(ItemInInventory itemInInventory in currentRecip.requiredItems)
-        {   
-            for (int i = 0; i < itemInInventory.count; i++)
-            {
-                MainInventory.instance.RemoveItem(itemInInventory.itemData);
-            }   
+        if (!isCheatActive)
+        {
+            foreach(ItemInInventory itemInInventory in currentRecip.requiredItems)
+            {   
+                for (int i = 0; i < itemInInventory.count; i++)
+                {
+                    MainInventory.instance.RemoveItem(itemInInventory.itemData);
+                }   
+            }
         }
         MainInventory.instance.AddItem(currentRecip.craftableItem);
     }

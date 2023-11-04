@@ -21,6 +21,8 @@ public class CraftingSystem : MonoBehaviour
     [HideInInspector]
     public bool craftPanelIsOpen;
 
+    public bool craftCheat = false;
+
     void Start()
     {   
         craftingPanel.SetActive(false);
@@ -65,7 +67,7 @@ public class CraftingSystem : MonoBehaviour
         foreach(RecipData recipData in availableRecipes)
         {
             GameObject currentRecip = Instantiate(recipUIPrefab, recipesParent);
-            currentRecip.GetComponent<Recip>().Configure(recipData);
+            currentRecip.GetComponent<Recip>().Configure(recipData, craftCheat);
 
         }
     }

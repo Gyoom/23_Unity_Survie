@@ -17,6 +17,9 @@ public class BreakMenu : MonoBehaviour
     private BuildSystem buildSystem;
 
     [SerializeField]
+    private CraftingSystem craftingSystem;
+
+    [SerializeField]
     private PlayerStats playerStats;
 
     [SerializeField]
@@ -182,10 +185,12 @@ public class BreakMenu : MonoBehaviour
         clearSavedDataButton.interactable = false;
     }
 
-    public void UpdateCheat(bool isCheat)
+    public void UpdateCheat(bool isCheatActive)
     {
-        buildSystem.cheatBuild = isCheat;
-        playerStats.cheatStats = isCheat;
-        flyBehaviour.flyCheat = isCheat;
+        buildSystem.buildCheat = isCheatActive;
+        playerStats.statsCheat = isCheatActive;
+        flyBehaviour.flyCheat = isCheatActive;
+        craftingSystem.craftCheat = isCheatActive;
+        
     }
 }

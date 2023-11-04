@@ -54,7 +54,7 @@ public class PlayerStats : MonoBehaviour
     [HideInInspector]
     public bool isDead = false;
 
-    public bool cheatStats = false;
+    public bool statsCheat = false;
 
     public float currentArmorPoint;
 
@@ -76,7 +76,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     public void TakeDamage(float damage, bool overTime = false) {
-        if (cheatStats)
+        if (statsCheat)
             return;
 
         if (overTime)
@@ -116,7 +116,7 @@ public class PlayerStats : MonoBehaviour
 
     void updateHungerAndThirstBarFill()
     {
-        if (cheatStats)
+        if (statsCheat)
             return;
         // Diminue faim /soif au fil du temps
         currentHunger -= hungerDecreaseRate * Time.deltaTime;

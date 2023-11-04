@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a0f3b5a1eda034b88fcbe3069675ba, type: 3}
+  m_Name: IronSwordRecip
+  m_EditorClassIdentifier: 
+  craftableItem: {fileID: 11400000, guid: 727948073044e2b40bf9d4db58a5a8c9, type: 2}
+  requiredItems:
+  - itemData: {fileID: 11400000, guid: 00d86699409837b42a3156e91edee8ef, type: 2}
+    count: 4

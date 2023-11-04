@@ -110,10 +110,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.19657367
+  m_Radius: 0.1568203
   m_Height: 3.7720704
   m_Direction: 1
-  m_Center: {x: 0.13085955, y: 1.8860352, z: 0.119127035}
+  m_Center: {x: 0.09254414, y: 1.8860352, z: -0.020917892}
 --- !u!54 &9090800910509336643
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -142,4 +142,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41754a8b7d21ae144aa50ba714870a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  harvestableData: {fileID: 11400000, guid: bdf0364a28780b0448db8b30c238b345, type: 2}
+  data: {fileID: 11400000, guid: bdf0364a28780b0448db8b30c238b345, type: 2}

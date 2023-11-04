@@ -28,6 +28,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private AudioMixer mainMixer;
 
+    [SerializeField]
+    private BuildSystem buildSystem;
+
+    [SerializeField]
+    private PlayerStats playerStats;
+
     public Button clearSavedDataButton;
 
     
@@ -107,13 +113,13 @@ public class MainMenu : MonoBehaviour
     public void NewGameButton()
     {
         loadSavedData = false;
-        SceneManager.LoadScene("Scene");
+        SceneManager.LoadScene("Level1");
     }
 
     public void LoadButton()
     {
         loadSavedData = true;
-        SceneManager.LoadScene("Scene");
+        SceneManager.LoadScene("Level1");
     }
 
     public void OptionsButton()
@@ -128,13 +134,13 @@ public class MainMenu : MonoBehaviour
 
     // Options Methods
 
-    public void setResolution(int resolutionIndex)
+    public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = Screen.resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
-    public void setQuality(int qualityIndex)
+    public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }

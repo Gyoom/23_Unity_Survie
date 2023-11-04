@@ -18,13 +18,13 @@ public class CraftingSystem : MonoBehaviour
     [SerializeField]
     private GameObject craftingPanel;
 
-    private bool craftPanelIsOpen;
+    [HideInInspector]
+    public bool craftPanelIsOpen;
 
     void Start()
     {   
         craftingPanel.SetActive(false);
         craftPanelIsOpen = false;
-        UpdateDisplayedRecipes();
     }
 
     void Update() 

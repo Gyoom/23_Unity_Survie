@@ -1999,10 +1999,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1206163744}
   animator: {fileID: 1206163746}
-  iaAudioSource: {fileID: 148408420}
-  maxHealth: 1
+  iaContinuousAudioSource: {fileID: 148408419}
+  iaConditionAudioSource: {fileID: 148408420}
+  maxHealth: 170
   currentHealth: 0
-  detectionRadius: 10
+  detectionRadius: 15
   attackRadius: 3.2
   walkSpeed: 2
   chaseSpeed: 4

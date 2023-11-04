@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 315064beffd8400498b15edd3342dbc8, type: 3}
   m_Name: ClassicTreeData
   m_EditorClassIdentifier: 
-  harvestablePrefab: {fileID: 136328, guid: 613b4cc8c589ad8458e792ae21891bef, type: 3}
+  prefab: {fileID: 136328, guid: 613b4cc8c589ad8458e792ae21891bef, type: 3}
   dropItems:
   - itemData: {fileID: 11400000, guid: 17cc75f63abea644bbe4d69af48f1ed2, type: 2}
     dropChance: 100

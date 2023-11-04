@@ -5,6 +5,6 @@ using UnityEngine;
 
 public class Harvestable : MonoBehaviour
 {
-    public HarvestableData harvestableData;  
+    public HarvestableData data;  
 }
 

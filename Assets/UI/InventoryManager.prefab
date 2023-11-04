@@ -1,0 +1,208 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7295376814654212024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7295376814654212030}
+  - component: {fileID: 7295376814654212031}
+  - component: {fileID: 7295376814654212028}
+  - component: {fileID: 7295376814654212003}
+  - component: {fileID: 7295376814654212002}
+  - component: {fileID: 7295376814654212029}
+  m_Layer: 0
+  m_Name: InventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7295376814654212030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295376814654212024}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7295376814654212031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295376814654212024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48cd69be7ae104f4bbc23bca1c13068b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content:
+  - itemData: {fileID: 11400000, guid: 71a0ab265b0d04c4dbb061f8c3a2ebd7, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: 727948073044e2b40bf9d4db58a5a8c9, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: 61bcf06daa69e23448b409bc14926d77, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: 4d44336a0835ec447b280fc85ce83806, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: bd44fcc82354a3147b27f005e03c22e9, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: b27596789bc5e4346bd917c8d68e7c66, type: 2}
+    count: 1
+  slots: []
+  inventorySlotParents:
+  - {fileID: 0}
+  inventorySize: 0
+  inventoryFilling: 0
+  inventoryPanel: {fileID: 0}
+  itemActionSystem: {fileID: 7295376814654212029}
+  craftingSystem: {fileID: 0}
+--- !u!114 &7295376814654212028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295376814654212024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21528fc0df386a4b8b5cc15bdc7866a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content: []
+  slots: []
+  inventorySlotParents:
+  - {fileID: 0}
+  - {fileID: 0}
+  inventorySize: 0
+  inventoryFilling: 0
+  equipementSystem: {fileID: 7295376814654212002}
+--- !u!114 &7295376814654212003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295376814654212024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067c06d53a4d29f479487c030ecd6b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  content:
+  - itemData: {fileID: 11400000, guid: f614f1b5798c61f409c87a4988e48107, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: 442e4d48940a2e94c85cd714a9c985e7, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: c474f99c19b42924a864b903ed78fe3b, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: 727948073044e2b40bf9d4db58a5a8c9, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: 68321b9257737704c9009a6046a98750, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: fa85d16bcca0de14199db5c168efe1a4, type: 2}
+    count: 1
+  slots: []
+  inventorySlotParents:
+  - {fileID: 0}
+  inventorySize: 0
+  inventoryFilling: 0
+  selectedColor: {r: 0, g: 0.972549, b: 0.93333334, a: 0.49803922}
+  unselectedColor: {r: 1, g: 1, b: 1, a: 1}
+  slotSelected: 0
+  equipSystem: {fileID: 7295376814654212002}
+  buildSystem: {fileID: 0}
+--- !u!114 &7295376814654212002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295376814654212024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067da2a891bed55428b524405b9e5309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemActionSystem: {fileID: 7295376814654212029}
+  playerStats: {fileID: 0}
+  playerAudioSource: {fileID: 0}
+  gearupSound: {fileID: 8300000, guid: 445277f5f4f6f4b48b66b1e313319c2d, type: 3}
+  equipedItems:
+  - equiped: 0
+    equipementType: 0
+    data: {fileID: 0}
+    gameobjectVisual: {fileID: 0}
+    defaultVisuals:
+    - {fileID: 0}
+  - equiped: 0
+    equipementType: 1
+    data: {fileID: 0}
+    gameobjectVisual: {fileID: 0}
+    defaultVisuals:
+    - {fileID: 0}
+    - {fileID: 0}
+  - equiped: 0
+    equipementType: 2
+    data: {fileID: 0}
+    gameobjectVisual: {fileID: 0}
+    defaultVisuals:
+    - {fileID: 0}
+  - equiped: 0
+    equipementType: 3
+    data: {fileID: 0}
+    gameobjectVisual: {fileID: 0}
+    defaultVisuals:
+    - {fileID: 0}
+    - {fileID: 0}
+  - equiped: 0
+    equipementType: 4
+    data: {fileID: 0}
+    gameobjectVisual: {fileID: 0}
+    defaultVisuals:
+    - {fileID: 0}
+  - equiped: 0
+    equipementType: 5
+    data: {fileID: 0}
+    gameobjectVisual: {fileID: 0}
+    defaultVisuals: []
+  - equiped: 0
+    equipementType: 6
+    data: {fileID: 0}
+    gameobjectVisual: {fileID: 0}
+    defaultVisuals: []
+  weaponAndToolVisualParent: {fileID: 0}
+--- !u!114 &7295376814654212029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7295376814654212024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd6b34b163024e4da612f91885e9af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
+  parentSceneItems: {fileID: 0}
+  actionPanel: {fileID: 0}
+  dropPoint: {fileID: 0}
+  useItemButton: {fileID: 0}
+  equipItemButton: {fileID: 0}
+  dropItemButton: {fileID: 0}
+  destroyItemButton: {fileID: 0}
+  itemDataCurrentlySelected: {fileID: 0}
+  itemInventory: {fileID: 0}

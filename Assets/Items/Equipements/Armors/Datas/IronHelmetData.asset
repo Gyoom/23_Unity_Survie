@@ -18,6 +18,10 @@ MonoBehaviour:
   prefab: {fileID: 7312901888166998542, guid: 2865e2b615b62574ab898da2613c18be, type: 3}
   stackable: 0
   MaxStack: 0
-  visualEquipement: {fileID: 5418669028925157232, guid: d186ab10852e79a4ab838157e55a9b94, type: 3}
-  equipementType: 0
+  positionsOffset: {x: 0, y: 0, z: 0}
+  rotationsOffset: {x: 0, y: 0, z: 0}
+  useSound: {fileID: 0}
+  armorType: 0
+  visual: {fileID: -2854808510063695659, guid: 10399581d9d41a44bb8984ec628263dd, type: 3}
+  material: {fileID: 2100000, guid: 22e7fb49e2b49e0418ef97b61b1c8db5, type: 2}
   armorPoints: 10

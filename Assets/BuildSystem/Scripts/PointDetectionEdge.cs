@@ -24,12 +24,6 @@ public class PointDetectionEdge : MonoBehaviour
                     connected = true;
                     return;
                 }
-
-                if (collider.CompareTag("Terrain") && typePoint != TypePoint.Top) // evite de creer des escalier/mur dans le sol
-                {   
-                    connected = true;
-                    return;
-                }
             }
         }
     }

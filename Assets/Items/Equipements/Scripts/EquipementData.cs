@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EquipementData : ItemData
 {
-    [Header("EQUIPEMENT STATS")]
-    public GameObject visualEquipement;
-
-    public EquipementType equipementType;
+    [Header("EQUIPEMENT DATA")]
+    public Vector3 positionsOffset;
+    public Vector3 rotationsOffset;
+    public AudioClip useSound;
 }

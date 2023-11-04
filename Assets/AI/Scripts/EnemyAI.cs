@@ -18,7 +18,10 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
 
     [SerializeField]
-    private AudioSource iaAudioSource;
+    private AudioSource iaContinuousAudioSource;
+
+    [SerializeField]
+    private AudioSource iaConditionAudioSource;
 
     [Header("Stats")]
     [SerializeField]
@@ -64,7 +67,7 @@ public class EnemyAI : MonoBehaviour
     private bool isAttacking;
     private bool hasDestination;
 
-    private bool isDead = false;
+    public bool isDead = false;
 
     void Awake() 
     {
@@ -131,12 +134,12 @@ public class EnemyAI : MonoBehaviour
         hasDestination = false;
     }
 
-     private IEnumerator AttackPlayer() 
+    private IEnumerator AttackPlayer() 
     {
         isAttacking = true;
         agent.isStopped = true;
 
-        iaAudioSource.Play();
+        iaConditionAudioSource.Play();
         
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(attackDelay);
@@ -160,6 +163,7 @@ public class EnemyAI : MonoBehaviour
             isDead = true;
             agent.enabled = false;
             animator.SetTrigger("Death");
+            iaContinuousAudioSource.enabled = false;
             enabled = false; // script courant 
             
         }

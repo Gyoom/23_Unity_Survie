@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UIElements;
 
 public class InteractBehaviour : MonoBehaviour
-{   // Player
+{   
+    // Player
     [Header("COMPONENTS REFERENCES")]
-    [SerializeField]
-    private Inventory inventory;
 
     [SerializeField]
     private Animator playerAnimator;
@@ -15,23 +15,10 @@ public class InteractBehaviour : MonoBehaviour
     private MoveBehaviour playerMoveBehaviour;
 
     [SerializeField]
-    private Equipement equipementSystem;
-
-    [SerializeField]
-    private EquipementLibrary equipementLibrary;
+    private EquipementSystem equipSystem;
 
     [SerializeField]
     private AudioSource playerAudioSource;
-
-    [Header("TOOLS CONFIGURATION")]
-    [SerializeField]
-    private Transform toolTransfomParent;
-
-    // [SerializeField]
-    // private GameObject pickAxeVisual;
-
-    // [SerializeField]
-    // private GameObject axeVisual;
 
     [Header("OTHERS")]
 
@@ -48,11 +35,9 @@ public class InteractBehaviour : MonoBehaviour
 
     private Item currentItem;
 
-    private Harvestable currentHarvestable;
+    private GameObject currentHarvestable;
 
-    private ToolData currentTool;
-
-    private GameObject toolCurentlyUsed;
+    private ToolData currentEquipedToolData;
 
     // Pickup Methods
     public void DoPickup (Item item) 
@@ -60,7 +45,7 @@ public class InteractBehaviour : MonoBehaviour
         if (isBusy) return;
         isBusy = true;
 
-        if (inventory.IsFull()) 
+        if (MainInventory.instance.IsFull()) 
         {
             Debug.Log("L'inventaire est plein, je ne peux pas ramasser : " + item.name);
             return;
@@ -76,89 +61,84 @@ public class InteractBehaviour : MonoBehaviour
     public void AddItemToInventory()
     {
         playerAudioSource.PlayOneShot(pickUpSound);
-        inventory.AddItem(currentItem.itemData);
+        MainInventory.instance.AddItem(currentItem.data);
         Destroy(currentItem.gameObject);
+    }
+
+    public bool CanHarvest(HarvestableData harvestableData)
+    {
+        if(isBusy)
+            return false;
+
+        EquipedItem equipedItem = equipSystem.GetEquipedItem(EquipableItemType.Tool);
+
+        if (!equipedItem.equiped)
+            return false;
+        
+        if (equipedItem.data != harvestableData.toolData)
+            return false;
+
+        currentEquipedToolData = (ToolData) equipedItem.data;
+        return true;
     }
 
     // Harvest Methods
 
-    public void DoHarvest(Harvestable haverstable)
+    public void DoHarvest(GameObject harvestable)
     {
-        if (isBusy) return;
-        isBusy = true;
+        if (!CanHarvest(harvestable.GetComponent<Harvestable>().data))
+            return;
 
-        currentTool = haverstable.harvestableData.toolData;
-        EnabledToolGameObject();
-
+        playerAudioSource.clip = currentEquipedToolData.useSound;
         playerAnimator.SetTrigger("Harvest");
         playerMoveBehaviour.canMove = false;
-        currentHarvestable = haverstable;
+        currentHarvestable = harvestable;
     }
 
-    // coroutine appellée depuis l'animation Harvesting
+    // Coroutine appellée depuis l'animation Harvesting
     IEnumerator BreakHarvestable() 
     { 
-        Harvestable harvestable  = currentHarvestable;
-        harvestable.gameObject.layer = LayerMask.NameToLayer("Default");
+        Harvestable harvestableScript  = currentHarvestable.GetComponent<Harvestable>();
+        harvestableScript.gameObject.layer = LayerMask.NameToLayer("Default");
 
-        if(harvestable.harvestableData.disableKinematicOnharvest) 
+        if(harvestableScript.data.disableKinematicOnharvest) 
         {
-            Rigidbody rigidbody = harvestable.gameObject.GetComponent<Rigidbody>();
+            Rigidbody rigidbody = currentHarvestable.GetComponent<Rigidbody>();
             rigidbody.isKinematic = false;
-            rigidbody.AddForce(transform.forward * 800, ForceMode.Impulse);
+            
+            //rigidbody.AddForce(transform.forward * 100000);
+            rigidbody.AddForceAtPosition(transform.forward * 200000, currentHarvestable.transform.GetChild(0).position);
+
         }
+        yield return new WaitForSeconds(harvestableScript.data.destroyDelay);
 
-        yield return new WaitForSeconds(harvestable.harvestableData.destroyDelay);
+        Vector3 harvestablePosition = harvestableScript.transform.position;
+        Vector3 currentSpawnItemOffset = spawnItemOffset;
+        Ressource[] ressources = harvestableScript.data.dropItems;
 
-        foreach (Ressource ressource in harvestable.harvestableData.dropItems)
+        Destroy(harvestableScript.gameObject);
+
+        foreach (Ressource ressource in ressources)
         {
-            if (UnityEngine.Random.Range(1, 101) <= ressource.dropChance)
+            if (Random.Range(1, 101) <= ressource.dropChance)
             {
                 GameObject instantiateRessource = Instantiate(ressource.itemData.prefab, itemsParent);
-                instantiateRessource.transform.position = harvestable.transform.position + spawnItemOffset;
+                instantiateRessource.transform.position = harvestablePosition + currentSpawnItemOffset;
             }
-        }
-
-        Destroy(harvestable.gameObject);
-    }
-
-    private void EnabledToolGameObject(bool enabled = true) 
-    {
-        // activer / desactiver l'arme équipée le temps de la récolte 
-        GameObject actualWeapon = equipementSystem.GetCurrentEquipementVisual(EquipementType.Weapon);
-        if (actualWeapon != null)
-        {
-            actualWeapon.SetActive(!enabled);
-        }
-
-        if (enabled)
-        {    
-            toolCurentlyUsed = Instantiate(
-                currentTool.visualEquipement, 
-                currentTool.positionsOffset, 
-                Quaternion.Euler(currentTool.rotationsOffset)
-            );
-            toolCurentlyUsed.transform.SetParent(toolTransfomParent, false);
-            playerAudioSource.clip = currentTool.toolSound; 
-
-        }
-        else 
-        {
-            Destroy(toolCurentlyUsed);
-            toolCurentlyUsed = null;
+            currentSpawnItemOffset.y += 0.2f;
         }
     }
-    // call from animation
+
+    // Call from harvestable animation
     public void PlayHarvestingSoundEffect()
     {
         playerAudioSource.Play();
     }
 
-    // Various Methods
+    // Call from harvestable animation
     public void ReEnablePlayerMovement()
     {
         isBusy = false;
         playerMoveBehaviour.canMove = true;
-        EnabledToolGameObject(false);
     }
 }

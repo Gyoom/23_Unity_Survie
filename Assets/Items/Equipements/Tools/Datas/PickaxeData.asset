@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Pioche
   description: ToDo
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
+  icon: {fileID: 21300000, guid: e5665e2d1e8b1c8499103417c72e5bda, type: 3}
+  prefab: {fileID: 2651747729594002529, guid: 770d0f17e99f0e64886251990f12480b, type: 3}
   stackable: 0
   MaxStack: 0
-  visualEquipement: {fileID: 2651747729594002529, guid: fcdb12c0011022649b9ec1569d29917d, type: 3}
-  positionsOffset: {x: 0.00046473183, y: -0.014364554, z: -0.04526064}
-  rotationsOffset: {x: 0, y: 199.99998, z: 340}
-  toolSound: {fileID: 8300000, guid: f8f8b9828e940dd4c9cfacbb236c6bb6, type: 3}
+  positionsOffset: {x: 0, y: 0, z: 0}
+  rotationsOffset: {x: 0, y: 30, z: -20}
+  useSound: {fileID: 8300000, guid: 5a42e67b6878c284e821c06ac147a2c2, type: 3}
+  visual: {fileID: 2651747729594002529, guid: fcdb12c0011022649b9ec1569d29917d, type: 3}

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +16,7 @@ public class SaveSystem : MonoBehaviour
     private Transform cameraTransform;
 
     [SerializeField]
-    private Equipement playerEquipement;
+    private EquipementSystem playerEquipement;
 
     [SerializeField]
     private PlayerStats playerStats;
@@ -23,7 +25,37 @@ public class SaveSystem : MonoBehaviour
     private BuildSystem buildSystem;
 
     [SerializeField]
-    private MainMenu breakMenu;
+    private BreakMenu breakMenu;
+
+    [Header("PARENTS TRANSFORM REFERNCES")]
+
+    [SerializeField]
+    private Transform parentSceneStructures;
+
+    [SerializeField]
+    private Transform parentSceneItems;
+
+    [SerializeField]
+    private Transform parentSceneHarvestables;
+
+    [SerializeField]
+    private Transform parentSceneEnemies;
+
+    [SerializeField]
+    private GameObject BearPrefab;
+
+    [HideInInspector]
+    public List<ObjectSaved> sceneStrucures;
+
+    [HideInInspector]
+    public List<ObjectSaved> sceneItems;
+
+    [HideInInspector]
+    public List<ObjectSaved> sceneHarvestables;
+
+    [HideInInspector]
+    public List<ObjectSaved> sceneEnemies;
+
 
     
 
@@ -55,25 +87,23 @@ public class SaveSystem : MonoBehaviour
             playerPosition = playerTransform.position,
             playerRotation = playerTransform.rotation,
 
-            inventoryContent = Inventory.instance.getContent(),
-            equipedHeadItem =   playerEquipement.GetCurrentEquipementVisual(EquipementType.Head).GetComponent<Item>().itemData,
-            equipedChestItem =  playerEquipement.GetCurrentEquipementVisual(EquipementType.Chest).GetComponent<Item>().itemData,
-            equipedHandsItem =  playerEquipement.GetCurrentEquipementVisual(EquipementType.Hands).GetComponent<Item>().itemData,
-            equipedLegsItem =   playerEquipement.GetCurrentEquipementVisual(EquipementType.Legs).GetComponent<Item>().itemData,
-            equipedFeetsItem =  playerEquipement.GetCurrentEquipementVisual(EquipementType.Feets).GetComponent<Item>().itemData,
-            equipedWeaponItem = playerEquipement.GetCurrentEquipementVisual(EquipementType.Weapon).GetComponent<Item>().itemData,
+            mainInventoryContent       = MainInventory.instance.getContent(),
+            actionInventoryContent     = ActionInventory.instance .getContent(),
+            equipementInventoryContent = EquipementInventory.instance.getContent(),
 
             currentHealth = playerStats.currentHealth,
             currentHunger = playerStats.currentHunger,
             currentThirst = playerStats.currentThirst,
 
-            placedStructures = buildSystem.placedStructures.ToArray(),
-
-
+            structures   = SaveSceneObjects(parentSceneStructures).ToArray(),
+            items        = SaveSceneObjects(parentSceneItems).ToArray(),
+            harvestables = SaveSceneObjects(parentSceneHarvestables).ToArray(),
+            enemies      = SaveSceneObjects(parentSceneEnemies).ToArray(),
         };
 
         string jsonData = JsonUtility.ToJson(savedData);
         string filePath = Application.persistentDataPath + "/SavedData.json";
+        
         Debug.Log(filePath);
         System.IO.File.WriteAllText(filePath, jsonData);
 
@@ -81,6 +111,50 @@ public class SaveSystem : MonoBehaviour
         breakMenu.clearSavedDataButton.interactable = true;
 
         Debug.Log("Sauvegarde Terminée");
+    }
+
+    private List<ObjectSaved> SaveSceneObjects(Transform parentSceneObjects)
+    {
+
+        List<ObjectSaved> sceneObjects = new List<ObjectSaved>();
+
+        for (int i = 0; i < parentSceneObjects.childCount; i++)
+        {   if (parentSceneObjects.CompareTag("ParentSceneHarvestables"))
+            {
+                sceneObjects.Add( new ObjectSaved 
+                {
+                    prefab =   parentSceneObjects.GetChild(i).GetComponent<Harvestable>().data.prefab,
+                    position = parentSceneObjects.GetChild(i).position,
+                    rotation = parentSceneObjects.GetChild(i).rotation.eulerAngles,
+                    scale =    parentSceneObjects.GetChild(i).localScale
+                });
+            }
+            else if (parentSceneObjects.CompareTag("ParentSceneEnemies"))
+            {
+                if (!parentSceneObjects.GetChild(i).GetComponent<EnemyAI>().isDead)
+                {
+                    sceneObjects.Add( new ObjectSaved 
+                    {
+                        prefab =   BearPrefab,
+                        position = parentSceneObjects.GetChild(i).position,
+                        rotation = parentSceneObjects.GetChild(i).rotation.eulerAngles,
+                        scale =    parentSceneObjects.GetChild(i).localScale
+                    });
+                }
+            }
+            else
+            {
+                sceneObjects.Add( new ObjectSaved 
+                {
+                    prefab =   parentSceneObjects.GetChild(i).GetComponent<Item>().data.prefab,
+                    position = parentSceneObjects.GetChild(i).position,
+                    rotation = parentSceneObjects.GetChild(i).rotation.eulerAngles,
+                    scale =    parentSceneObjects.GetChild(i).localScale
+                });
+            }
+        }
+
+        return sceneObjects;
     }
 
     public void LoadData()
@@ -95,50 +169,79 @@ public class SaveSystem : MonoBehaviour
         playerTransform.position = savedData.playerPosition;
         playerTransform.rotation = savedData.playerRotation;
 
-        cameraTransform = savedData.camera;
-
-        playerEquipement.LoadEquipements(new ItemData[] 
-            {
-                savedData.equipedHeadItem, 
-                savedData.equipedWeaponItem, 
-                savedData.equipedChestItem,
-                savedData.equipedHandsItem,
-                savedData.equipedLegsItem,
-                savedData.equipedHandsItem
-            }
-        );
-        Inventory.instance.SetContent(savedData.inventoryContent);
+        MainInventory.instance.LoadContent(savedData.mainInventoryContent);
+        ActionInventory.instance.LoadContent(savedData.actionInventoryContent);
+        EquipementInventory.instance.LoadContent(savedData.equipementInventoryContent);
 
         playerStats.currentHealth = savedData.currentHealth;
         playerStats.currentHealth = savedData.currentHealth;
         playerStats.currentHealth = savedData.currentHealth;
         playerStats.updateHealthBarFill();
 
-        buildSystem.LoadStructures(savedData.placedStructures);
+        LoadSceneObjects(savedData.structures, parentSceneStructures, sceneStrucures);;
+        LoadSceneObjects(savedData.items, parentSceneItems, sceneItems);
+        LoadSceneObjects(savedData.harvestables, parentSceneHarvestables, sceneHarvestables);
+        LoadSceneObjects(savedData.enemies, parentSceneEnemies, sceneEnemies);
 
         Debug.Log("Chargement terminé");
-    }   
+    } 
+
+    private bool LoadSceneObjects(ObjectSaved[] objectsSaved, Transform parentSceneObjects, List<ObjectSaved> sceneObjects) 
+    {
+        for (int i = 0; i < parentSceneObjects.childCount; i++)
+        {
+            if (parentSceneObjects.CompareTag("ParentSceneEnemies") && parentSceneObjects.GetChild(i).GetComponent<EnemyAI>().isDead)
+            {
+
+            } else 
+                Destroy(parentSceneObjects.GetChild(i).gameObject);
+        }
+
+        sceneObjects.Clear();
+
+        foreach (ObjectSaved objectSaved in objectsSaved)
+        {
+            sceneObjects.Add(objectSaved);
+            GameObject instantiateObject = Instantiate(
+                objectSaved.prefab,
+                objectSaved.position,
+                Quaternion.Euler(objectSaved.rotation),
+                parentSceneObjects
+            );
+            instantiateObject.transform.localScale = objectSaved.scale;
+        }
+
+        return true;
+    }
 }
 
-public class SavedData // ToDo : sauvegarder les haverstables et les items + camera
+[Serializable]
+public class SavedData // ToDo : sauvegarder camera
 {
     public Vector3 playerPosition;
     public Quaternion playerRotation;
 
-    public Transform camera;
-    public List<ItemInInventory> inventoryContent;
-
-    public ItemData equipedWeaponItem;
-    public ItemData equipedHeadItem;
-    public ItemData equipedChestItem;
-    public ItemData equipedHandsItem;
-    public ItemData equipedLegsItem;
-    public ItemData equipedFeetsItem;
+    public ItemInInventory[] mainInventoryContent;
+    public ItemInInventory[] actionInventoryContent;
+    public ItemInInventory[] equipementInventoryContent;
 
     public float currentHealth;
     public float currentHunger;
     public float currentThirst;
 
-    public PlacedStructure[] placedStructures;
+    public ObjectSaved[] structures;
+    public ObjectSaved[] items;
+    public ObjectSaved[] harvestables;
+    public ObjectSaved[] enemies;
 }
+
+[Serializable]
+public class ObjectSaved
+{
+    public GameObject prefab;
+    public Vector3 position;
+    public Vector3 rotation;
+    public Vector3 scale;
+}
+
 

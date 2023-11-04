@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "Ep\xE9e en fer"
   description: "Ca se tient par la poign\xE9e ..."
-  icon: {fileID: 21300000, guid: d5af6d0e935cbeb4f9f067ca223e3aec, type: 3}
+  icon: {fileID: 21300000, guid: 2937e8e648ca92c419c9ed5578b23f5f, type: 3}
   prefab: {fileID: 355312524381552382, guid: b84d7ca3927758646a65731cc107aa76, type: 3}
   stackable: 0
   MaxStack: 0
-  visualEquipement: {fileID: 0}
-  equipementType: 5
-  positionsOffset: {x: 0.00046473183, y: -0.014364554, z: -0.04526064}
-  rotationsOffset: {x: 0.2070022, y: 180, z: 4.0570016}
+  positionsOffset: {x: 0, y: 0, z: 0}
+  rotationsOffset: {x: 0, y: 180, z: 4}
+  useSound: {fileID: 0}
+  visual: {fileID: 355312524381552382, guid: c38f5a3e316671d4ea1f6d5c70d82b73, type: 3}
   minDamagePoints: 10
   maxDamagePoints: 20

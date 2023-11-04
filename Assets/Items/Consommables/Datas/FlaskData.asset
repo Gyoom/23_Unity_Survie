@@ -9,12 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36d63b14366f82c40ac280041a749d74, type: 3}
+  m_Script: {fileID: 11500000, guid: 730a280c02c4181409be466afd966b24, type: 3}
   m_Name: FlaskData
   m_EditorClassIdentifier: 
   itemName: Bouteille d'eau
-  description: Une peite soif ?
+  description: Si, si c'est de l'eau
   icon: {fileID: 21300000, guid: 9ecbd7bf64888de4586601f9624d3541, type: 3}
   prefab: {fileID: 4745661115560378933, guid: 3ff9c98c0990fce468bb0d49a51b6461, type: 3}
   stackable: 1
   MaxStack: 64
+  consumableEffects:
+  - consumableTarget: 2
+    consumableValue: 100

@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 315064beffd8400498b15edd3342dbc8, type: 3}
+  m_Name: Tree002
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 123896, guid: c63ea781a273235439e583799176c846, type: 3}
+  dropItems:
+  - itemData: {fileID: 11400000, guid: 17cc75f63abea644bbe4d69af48f1ed2, type: 2}
+    dropChance: 100
+  - itemData: {fileID: 11400000, guid: 17cc75f63abea644bbe4d69af48f1ed2, type: 2}
+    dropChance: 80
+  - itemData: {fileID: 11400000, guid: 17cc75f63abea644bbe4d69af48f1ed2, type: 2}
+    dropChance: 60
+  - itemData: {fileID: 11400000, guid: 17cc75f63abea644bbe4d69af48f1ed2, type: 2}
+    dropChance: 40
+  disableKinematicOnharvest: 1
+  destroyDelay: 5
+  toolData: {fileID: 11400000, guid: 68321b9257737704c9009a6046a98750, type: 2}

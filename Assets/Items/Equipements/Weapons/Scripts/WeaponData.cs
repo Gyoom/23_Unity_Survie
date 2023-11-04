@@ -6,9 +6,9 @@ using UnityEngine;
 public class WeaponData : EquipementData
 {
 
-    [Header("WEAPON STATS")]
-    public Vector3 positionsOffset;
-    public Vector3 rotationsOffset;
+    [Header("WEAPON DATA")]
+
+    public GameObject visual;
     public float minDamagePoints;
     public float maxDamagePoints;
 }

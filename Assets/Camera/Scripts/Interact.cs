@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Interact: MonoBehaviour
 {   // camera
@@ -9,35 +12,49 @@ public class Interact: MonoBehaviour
     public InteractBehaviour playerInteractBehaviour;
 
     [SerializeField]
-    private LayerMask pickableItem; 
+    private LayerMask interactLayers;
 
     [SerializeField]
-    private GameObject interactText;
+    private UIManager uiManager;
+
+    [SerializeField]
+    private TagInteractText[] tagInteractTexts;
     
     void Update()
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange, pickableItem))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, interactRange, interactLayers))
         {
-            interactText.SetActive(true);
-            
-            if (Input.GetKeyDown(KeyCode.E)) 
-            {
-                if (hit.transform.CompareTag("Item")) 
+            string currentText = tagInteractTexts.Where(t => t.tag == hit.transform.tag).FirstOrDefault().text;
+
+            if (hit.transform.CompareTag("Item")) 
+            {   
+                uiManager.UpdateInteractText(currentText);
+
+                if (Input.GetKeyDown(KeyCode.E)) 
                 {
                     playerInteractBehaviour.DoPickup(hit.transform.gameObject.GetComponent<Item>());
-                }
+                }   
+            }
+            else if (hit.transform.CompareTag("Harvestable") && playerInteractBehaviour.CanHarvest(hit.transform.gameObject.GetComponent<Harvestable>().data)) 
+            {
+                uiManager.UpdateInteractText(currentText);
 
-                if (hit.transform.CompareTag("Harvestable")) 
+                if (Input.GetKeyDown(KeyCode.E)) 
                 {
-                    playerInteractBehaviour.DoHarvest(hit.transform.gameObject.GetComponent<Harvestable>());
+                    playerInteractBehaviour.DoHarvest(hit.transform.gameObject);
                 }
             }
-        } 
-        else 
-        {
-            interactText.SetActive(false);
         }
+        else 
+            uiManager.UpdateInteractText("");
     }
+}
+
+[Serializable]
+public class TagInteractText
+{
+    public string tag;
+    public string text;
 }

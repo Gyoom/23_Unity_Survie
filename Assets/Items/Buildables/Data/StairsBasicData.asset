@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73edc005efa22c54ba878ac52cb5cc1a, type: 3}
+  m_Name: StairsBasicData
+  m_EditorClassIdentifier: 
+  itemName: Escalier basique
+  description: ToDo
+  icon: {fileID: 21300000, guid: 17f275155d7ae33459e523444917e62e, type: 3}
+  prefab: {fileID: 1462557647666626, guid: cb6c360a9b1af834f967ae4010c71cfa, type: 3}
+  stackable: 1
+  MaxStack: 64
+  placementPrefab: {fileID: 927757868155282110, guid: 1e0055adb87f7244bade1f7cec5e1baf, type: 3}
+  structureType: 0
+  ressoucesCost: []

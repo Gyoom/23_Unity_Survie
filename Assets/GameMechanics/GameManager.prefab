@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6970871202392372141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6970871202392372143}
+  - component: {fileID: 6970871202392372179}
+  - component: {fileID: 6970871202392372176}
+  - component: {fileID: 6970871202392372140}
+  - component: {fileID: 6970871202392372178}
+  - component: {fileID: 6970871202392372177}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6970871202392372143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970871202392372141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6970871202392372179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970871202392372141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a87141dc547f7d488f49c7e49ab434e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
+  cameraTransform: {fileID: 0}
+  playerEquipement: {fileID: 0}
+  playerStats: {fileID: 0}
+  buildSystem: {fileID: 0}
+  breakMenu: {fileID: 0}
+  parentSceneStructures: {fileID: 0}
+  parentSceneItems: {fileID: 0}
+  parentSceneHarvestables: {fileID: 0}
+  sceneStrucures: []
+  sceneItems: []
+  sceneHarvestables: []
+--- !u!114 &6970871202392372176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970871202392372141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3966f9bb2b8493b458bc064b19b0bf99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIPanels:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerCameraScript: {fileID: 0}
+  aimBehaviourBasic: {fileID: 0}
+  atleastOneOpenPanel: 0
+--- !u!114 &6970871202392372140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970871202392372141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9fa2c6ca4945264d9e577f4dd701018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltip: {fileID: 0}
+  toolTransfert: {fileID: 0}
+  isToolTransfertActive: 0
+  currentPointedSlot: {fileID: 0}
+--- !u!114 &6970871202392372178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970871202392372141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a19201ce98fc440b456afefd190a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakMenuPanel: {fileID: 0}
+  breakMenuOptionsPanel: {fileID: 0}
+  mainCameraScript: {fileID: 0}
+--- !u!114 &6970871202392372177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6970871202392372141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7c90fb2614004d42895e3606469c1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  availableRecipes:
+  - {fileID: 11400000, guid: af298476effdb6742b4932e0d63b28a1, type: 2}
+  recipUIPrefab: {fileID: 4387362525086155380, guid: 905cfeb70cc854849980a2a2385c9e84, type: 3}
+  recipesParent: {fileID: 0}
+  openPanelCraftInput: 99
+  craftingPanel: {fileID: 0}

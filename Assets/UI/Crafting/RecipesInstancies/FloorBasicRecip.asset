@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7a0f3b5a1eda034b88fcbe3069675ba, type: 3}
+  m_Name: FloorBasicRecip
+  m_EditorClassIdentifier: 
+  craftableItem: {fileID: 11400000, guid: f614f1b5798c61f409c87a4988e48107, type: 2}
+  requiredItems:
+  - itemData: {fileID: 11400000, guid: dc03bbe2a8d251245b2897f19c9cb12e, type: 2}
+    count: 1
+  - itemData: {fileID: 11400000, guid: 17cc75f63abea644bbe4d69af48f1ed2, type: 2}
+    count: 2

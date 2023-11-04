@@ -31,7 +31,7 @@ public class Recip : MonoBehaviour
         currentRecip = recip;
         // initialise le slot de l'item à crafter
         craftableItemImage.sprite = recip.craftableItem.icon;
-        craftableItemImage.transform.parent.GetComponent<Slot>().item = recip.craftableItem; // good practice
+        craftableItemImage.transform.parent.GetComponent<InventorySlot>().data = recip.craftableItem; // good practice
 
         bool canCraft = true;
 
@@ -41,13 +41,13 @@ public class Recip : MonoBehaviour
             GameObject requiredItem = Instantiate(elementReqiredPrefab, elementsRequiredParent);
             ItemData requiredItemData = itemInRecip.itemData;
 
-            Slot requiredItemSlot = requiredItem.GetComponent<Slot>();
-            Image requiredItemImage = requiredItemSlot.itemVisual;
+            InventorySlot requiredItemSlot = requiredItem.GetComponent<InventorySlot>();
+            Image requiredItemImage = requiredItemSlot.visual;
             Text requiredItemCountText = requiredItemSlot.countText;
 
 
             // check si l'item existe dans l'inventaire
-            ItemInInventory[] itemsInInventory = Inventory.instance.getContent().Where(i => i.itemData == requiredItemData).ToArray();
+            ItemInInventory[] itemsInInventory = MainInventory.instance.getContent().Where(i => i != null && i.itemData == requiredItemData).ToArray();
             int totalRequiredItemQuantityInInventory = 0;
 
             foreach(ItemInInventory itemInInventory in itemsInInventory)
@@ -66,7 +66,7 @@ public class Recip : MonoBehaviour
             }
 
             // initialise le slot de l'item courant
-            requiredItemSlot.item = requiredItemData;
+            requiredItemSlot.data = requiredItemData;
             requiredItemImage.sprite = requiredItemData.icon;
 
             if (requiredItemData.stackable)
@@ -99,10 +99,10 @@ public class Recip : MonoBehaviour
         {   
             for (int i = 0; i < itemInInventory.count; i++)
             {
-                Inventory.instance.RemoveItem(itemInInventory.itemData);
+                MainInventory.instance.RemoveItem(itemInInventory.itemData);
             }   
         }
-        Inventory.instance.AddItem(currentRecip.craftableItem);
+        MainInventory.instance.AddItem(currentRecip.craftableItem);
     }
 
 

@@ -228,10 +228,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb94cbf9b1780a4b828a6faea11bfd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
-  itemVisual: {fileID: 4259666997022122313}
-  countText: {fileID: 7616927174608575679}
+  data: {fileID: 0}
+  index: 0
+  visual: {fileID: 4259666997022122313}
+  emptySprite: {fileID: 21300000, guid: 25d0ac2a41f0cd541869ac8148bf3e3f, type: 3}
+  inventoryScriptParent: {fileID: 0}
+  isActualyUsed: 0
   itemActionSystem: {fileID: 0}
+  countText: {fileID: 7616927174608575679}
 --- !u!1 &4259666997022122319
 GameObject:
   m_ObjectHideFlags: 0

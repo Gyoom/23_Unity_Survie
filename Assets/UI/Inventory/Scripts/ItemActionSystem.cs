@@ -7,13 +7,10 @@ public class ItemActionSystem : MonoBehaviour
     [Header("OTHER SCRIPTS REFERENCES")]
 
     [SerializeField]
-    private Equipement equipement;
-
-    [SerializeField]
     private PlayerStats playerStats;
 
     [SerializeField]
-    private Transform itemsParent;
+    private Transform parentSceneItems;
 
     [Header("ACTION PANEL SYSTEM VARIABLES")]
 
@@ -35,11 +32,14 @@ public class ItemActionSystem : MonoBehaviour
     private GameObject destroyItemButton;
 
     [HideInInspector]
-    public ItemData itemCurrentlySelected;
+    public ItemData itemDataCurrentlySelected;
 
-    public void OpenActionPanel(ItemData item, Vector3 slotPosition) 
+    [HideInInspector]
+    public AbstractInventory itemInventory;
+
+    public void OpenActionPanel(ItemData item, Vector3 slotPosition, AbstractInventory newItemInventory) 
     {
-        itemCurrentlySelected = item;
+        itemDataCurrentlySelected = item;
 
         if (item == null) 
         {
@@ -64,39 +64,53 @@ public class ItemActionSystem : MonoBehaviour
             equipItemButton.SetActive(false);
         }
 
+        itemInventory = newItemInventory;
         actionPanel.transform.position = slotPosition;
         actionPanel.SetActive(true);
     }
 
-    public void closeActionPanel() {
+    public void CloseActionPanel() {
         actionPanel.SetActive(false);
-        itemCurrentlySelected = null;
+        itemDataCurrentlySelected = null;
     }
 
     public void UseActionButton() 
     {
-        playerStats.consumeItem(((ConsummableData) itemCurrentlySelected).consumableEffects);
-        Inventory.instance.RemoveItem(itemCurrentlySelected);
-        closeActionPanel();
+        playerStats.consumeItem(((ConsummableData) itemDataCurrentlySelected).consumableEffects);
+        itemInventory.RemoveItem(itemDataCurrentlySelected);
+        CloseActionPanel();
     }
 
     public void EquipActionButton() {
-        equipement.EquipAction();
+        if((itemDataCurrentlySelected.GetType() == typeof(WeaponData)) || 
+            (itemDataCurrentlySelected.GetType() ==typeof(ToolData)))
+        {
+             if(ActionInventory.instance.AddItem(itemDataCurrentlySelected))
+                itemInventory.RemoveItem(itemDataCurrentlySelected);
+        }
+        if (itemDataCurrentlySelected.GetType() == typeof(ArmorData))
+        {
+            if(EquipementInventory.instance.AddItem(itemDataCurrentlySelected))
+                itemInventory.RemoveItem(itemDataCurrentlySelected);
+        }
+
+        CloseActionPanel();
     }
     
 
     public void DropActionButton() 
     {
-        GameObject instantiatedItem = Instantiate(itemCurrentlySelected.prefab, itemsParent);
+        GameObject instantiatedItem = Instantiate(itemDataCurrentlySelected.prefab, parentSceneItems);
         instantiatedItem.transform.position = dropPoint.position;
-        Inventory.instance.RemoveItem(itemCurrentlySelected);
-        closeActionPanel();
+        instantiatedItem.transform.SetParent(parentSceneItems, false);
+        itemInventory.RemoveItem(itemDataCurrentlySelected);
+        CloseActionPanel();
     }
 
     public void DestroyActionButton() 
     {
-        Inventory.instance.RemoveItem(itemCurrentlySelected);
-        closeActionPanel();
+        itemInventory.RemoveItem(itemDataCurrentlySelected);
+        CloseActionPanel();
     
     }
 }

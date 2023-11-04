@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "HarvestableData", menuName = "My Game/New Harvestable")]
 public class HarvestableData : ScriptableObject
 {
-    public GameObject harvestablePrefab;
+    public GameObject prefab;
 
     public Ressource[] dropItems;
 

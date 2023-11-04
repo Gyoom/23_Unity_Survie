@@ -14,10 +14,10 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
     [SerializeField]
     private AudioSource playerAudioSource;
 
-    [Header("CONFIGURATION")]
-
     [SerializeField]
-    private Structure[] structures;
+    private UIManager uIManager;
+
+    [Header("CONFIGURATION")]
 
     [SerializeField]
     private Material blueMaterial;
@@ -31,32 +31,22 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
     [SerializeField]
     private AudioClip buildSound;
 
-    [SerializeField]
-    private bool cheatBuild = false;
+    public bool cheatBuild = false;
 
     [SerializeField]
-    private Transform placedStructureParent;
+    private Transform parentSceneStructure;
 
-    [Header("UI REFERENCES")]
 
-    [SerializeField]
-    private Transform buildSystemPanel;
+    private StructureData currentStructureData;
 
-    [SerializeField]
-    private GameObject buildingRequiredElement;
-
-    private Structure currentStructure;
+    private GameObject currentPlacementStructurePrefab;
     private Vector3 targetPosition;
     private bool canBuild;
     private bool inPlace;
     private bool systemEnabled = false;
 
-    [HideInInspector]
-    public List<PlacedStructure> placedStructures;
-
     void Awake() 
     {
-        currentStructure = structures.First();
         DiseabledSystem();
     }
 
@@ -64,39 +54,20 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
     {
         if (!systemEnabled)
             return;
-        canBuild = currentStructure.placementPrefab.GetComponentInChildren<CollisionDetectionEdge>().CheckConnection();
+        canBuild = currentPlacementStructurePrefab.GetComponentInChildren<CollisionDetectionEdge>().CheckConnection();
         targetPosition = grid.GetNearestPointOnGrid(transform.position);
         CheckPosition();
         RoundPlacementStructureRotation();
         UpdatePlacementStructureMaterial();
     }
-    void Update() // ToDo : Menu de construction minecraft
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            if (currentStructure.structureType == StructureType.Stairs && systemEnabled)
-                DiseabledSystem();
-            else
-                ChangeStructureType(GetStructureByType(StructureType.Stairs));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {   
-            if (currentStructure.structureType == StructureType.Wall && systemEnabled)
-                DiseabledSystem();
-            else
-                ChangeStructureType(GetStructureByType(StructureType.Wall));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            if (currentStructure.structureType == StructureType.Floor && systemEnabled)
-                DiseabledSystem();
-            else
-                ChangeStructureType(GetStructureByType(StructureType.Floor));
-        }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && canBuild && inPlace && systemEnabled && (hasAllRessouces() || cheatBuild))
-        {
+        if (uIManager.IsPanelOpen())
+            return;
 
+        if (Input.GetKeyDown(KeyCode.Mouse0) && canBuild && inPlace && systemEnabled)
+        {
             BuildStructure();
         }
 
@@ -106,62 +77,42 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
         }
     }
 
+    public void DiseabledSystem()
+    {
+        if (systemEnabled) 
+        {
+            systemEnabled = false;
+            Destroy(currentPlacementStructurePrefab);
+        }
+    }
+
+    public void EnableSystem(StructureData newStructureItem)
+    {
+        systemEnabled = true;
+        currentStructureData = newStructureItem;
+        currentPlacementStructurePrefab = Instantiate(currentStructureData.placementPrefab);      
+    }
+
     private void BuildStructure()
     {
         playerAudioSource.PlayOneShot(buildSound);
 
         Instantiate(
-            currentStructure.instantiatePrefab, 
-            currentStructure.placementPrefab.transform.position, 
-            currentStructure.placementPrefab.transform.GetChild(0).rotation,
-            placedStructureParent
-        );
-
-        placedStructures.Add(
-            new PlacedStructure 
-            {
-                prefab = currentStructure.instantiatePrefab, 
-                position = currentStructure.placementPrefab.transform.position, 
-                rotation = currentStructure.placementPrefab.transform.GetChild(0).rotation.eulerAngles
-            }
+            currentStructureData.prefab, 
+            currentPlacementStructurePrefab.transform.position, 
+            currentPlacementStructurePrefab.transform.GetChild(0).rotation,
+            parentSceneStructure
         );
 
         if (!cheatBuild)
         {
-            foreach(ItemInInventory item in currentStructure.ressoucesCost)
-            {
-                for (int i = 0; i < item.count; i++)
-                {
-                    Inventory.instance.RemoveItem(item.itemData);
-                }
-            }
+            ActionInventory.instance.RemoveItem(currentStructureData);
         }
-    }
-
-    public void UpdateDisplayCosts()
-    {
-        foreach (Transform child in buildSystemPanel)  
-        {
-            child.GetComponent<BuildingRequiredElement>().CheckHasRessourcesToBuild();
-        }
-    }
-
-    private bool hasAllRessouces()
-    {
-        BuildingRequiredElement[] requiredElementsScripts = GameObject.FindObjectsOfType<BuildingRequiredElement>();
-        return requiredElementsScripts.All(requiredElement => requiredElement.hasRessouces);
-    }
-
-    private void DiseabledSystem()
-    {
-        systemEnabled = false;
-        currentStructure.placementPrefab.SetActive(false);
-        buildSystemPanel.gameObject.SetActive(false);
     }
 
     private void UpdatePlacementStructureMaterial()
     {
-        MeshRenderer placementPrefabRenderer = currentStructure.placementPrefab.GetComponentInChildren<CollisionDetectionEdge>().meshRenderer;
+        MeshRenderer placementPrefabRenderer = currentPlacementStructurePrefab.GetComponentInChildren<CollisionDetectionEdge>().meshRenderer;
         if (inPlace && canBuild)
         {
             placementPrefabRenderer.material = blueMaterial;
@@ -172,38 +123,9 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
         }
     }
 
-    private void ChangeStructureType(Structure newStructure)
-    {
-        systemEnabled = true;
-        buildSystemPanel.gameObject.SetActive(true);
-        currentStructure = newStructure;
-        foreach(Structure structure in structures)
-        {
-            structure.placementPrefab.SetActive(structure.structureType == currentStructure.structureType);
-        }
-
-        foreach (Transform child in buildSystemPanel) // Good Practice : foreach sur un transform pour obtenir ses objets  
-        {
-            Destroy(child.gameObject);
-        }
-
-        foreach(ItemInInventory requiredRessource in currentStructure.ressoucesCost)
-        {
-            GameObject buildingRequiredElementGO = Instantiate(buildingRequiredElement, buildSystemPanel);
-            buildingRequiredElementGO.GetComponent<BuildingRequiredElement>().Setup(requiredRessource);
-            
-        }
-
-    }
-
-    private Structure GetStructureByType(StructureType structureType)
-    {
-        return structures.Where(s => s.structureType == structureType).FirstOrDefault();
-    }
-
     private void CheckPosition() 
     {
-        inPlace = currentStructure.placementPrefab.transform.position == targetPosition;
+        inPlace = currentPlacementStructurePrefab.transform.position == targetPosition;
 
         if(!inPlace)
         {
@@ -213,7 +135,7 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
 
     private void SetPosition(Vector3 targetPosition)
     {
-        Transform placementPrefabTransform = currentStructure.placementPrefab.transform;
+        Transform placementPrefabTransform = currentPlacementStructurePrefab.transform;
         Vector3 positionVelocity = Vector3.zero; 
 
         if (Vector3.Distance(placementPrefabTransform.position, targetPosition) > 10)
@@ -229,9 +151,9 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
     }
 
     private void RotateStructure() 
-    {   if (currentStructure.structureType != StructureType.Wall)
+    {   if (currentStructureData.structureType != StructureType.Wall)
         {
-            currentStructure.placementPrefab.transform.GetChild(0).transform.Rotate(0, 90, 0);
+            currentPlacementStructurePrefab.transform.GetChild(0).transform.Rotate(0, 90, 0);
         }
     }
 
@@ -256,50 +178,6 @@ public class BuildSystem : MonoBehaviour // ToDo :Pourquoi pas un system avec ra
             roundedRotation = 270;
         }
 
-        currentStructure.placementPrefab.transform.rotation = Quaternion.Euler(0, roundedRotation, 0);
+       currentPlacementStructurePrefab.transform.rotation = Quaternion.Euler(0, roundedRotation, 0);
     }
-
-    public void LoadStructures(PlacedStructure[] structureToLoad)
-    { 
-        foreach (Transform child in placedStructureParent.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        placedStructures.Clear();
-        foreach (PlacedStructure structure in structureToLoad)
-        {
-            placedStructures.Add(structure);
-            Instantiate(
-                structure.prefab,
-                structure.position,
-                Quaternion.Euler(structure.rotation),
-                placedStructureParent
-            );
-        }
-    }
-}
-
-[Serializable]
-public class Structure // ToDo : créer une Data 
-{
-    public GameObject placementPrefab;
-    public GameObject instantiatePrefab;
-    public StructureType structureType;
-
-    public ItemInInventory[] ressoucesCost;
-}
-
-[Serializable]
-public class PlacedStructure
-{
-    public GameObject prefab;
-    public Vector3 position;
-    public Vector3 rotation;
-}
-
-public enum StructureType 
-{
-  Stairs,
-  Wall,
-  Floor  
 }

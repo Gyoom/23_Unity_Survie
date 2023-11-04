@@ -19,6 +19,9 @@ public class BreakMenu : MonoBehaviour
     [SerializeField]
     private PlayerStats playerStats;
 
+    [SerializeField]
+    private FlyBehaviour flyBehaviour;
+
     [Header("MAIN MENU REFERENCES")]
 
     [SerializeField]
@@ -183,5 +186,6 @@ public class BreakMenu : MonoBehaviour
     {
         buildSystem.cheatBuild = isCheat;
         playerStats.cheatStats = isCheat;
+        flyBehaviour.flyCheat = isCheat;
     }
 }

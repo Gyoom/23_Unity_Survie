@@ -28,12 +28,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private AudioMixer mainMixer;
 
-    [SerializeField]
-    private BuildSystem buildSystem;
-
-    [SerializeField]
-    private PlayerStats playerStats;
-
     public Button clearSavedDataButton;
 
     

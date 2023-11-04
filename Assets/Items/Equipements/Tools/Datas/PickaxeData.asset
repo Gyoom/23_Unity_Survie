@@ -20,5 +20,5 @@ MonoBehaviour:
   MaxStack: 0
   positionsOffset: {x: 0, y: 0, z: 0}
   rotationsOffset: {x: 0, y: 30, z: -20}
-  useSound: {fileID: 8300000, guid: 5a42e67b6878c284e821c06ac147a2c2, type: 3}
+  useSound: {fileID: 8300000, guid: f8f8b9828e940dd4c9cfacbb236c6bb6, type: 3}
   visual: {fileID: 2651747729594002529, guid: fcdb12c0011022649b9ec1569d29917d, type: 3}

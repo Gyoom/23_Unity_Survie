@@ -157,7 +157,7 @@ public abstract class AbstractInventory : MonoBehaviour
 
     //Remove Item
 
-    public ItemInInventory RemoveItem (ItemData item)
+    public virtual ItemInInventory RemoveItem (ItemData item)
     {
         ItemInInventory itemInInventory = content.Where(i => i != null && i.itemData == item).FirstOrDefault();
         ItemInInventory removedItem = new ItemInInventory {itemData = itemInInventory.itemData, count = itemInInventory.count};

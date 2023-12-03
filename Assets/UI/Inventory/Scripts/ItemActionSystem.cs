@@ -12,6 +12,9 @@ public class ItemActionSystem : MonoBehaviour
     [SerializeField]
     private Transform parentSceneItems;
 
+    [SerializeField]
+    private EquipementSystem equipementSystem;
+
     [Header("ACTION PANEL SYSTEM VARIABLES")]
 
     public GameObject actionPanel;
@@ -26,6 +29,9 @@ public class ItemActionSystem : MonoBehaviour
     private GameObject equipItemButton;
 
     [SerializeField]
+    private GameObject unequipItemButton;
+
+    [SerializeField]
     private GameObject dropItemButton;
 
     [SerializeField]
@@ -35,7 +41,7 @@ public class ItemActionSystem : MonoBehaviour
     public ItemData itemDataCurrentlySelected;
 
     [HideInInspector]
-    public AbstractInventory itemInventory;
+    public AbstractInventory currentItemInventory;
 
     public void OpenActionPanel(ItemData item, Vector3 slotPosition, AbstractInventory newItemInventory) 
     {
@@ -47,24 +53,23 @@ public class ItemActionSystem : MonoBehaviour
             return;
         }
 
-        if(item.GetType() == typeof(RessourceData)) 
-        {
-            useItemButton.SetActive(false);
-            equipItemButton.SetActive(false);
-        }
-        else if(item.GetType().IsSubclassOf(typeof(EquipementData))) 
-        {
-            useItemButton.SetActive(false);
-            equipItemButton.SetActive(true);
-        }
+        useItemButton.SetActive(false);
+        equipItemButton.SetActive(false);
+        unequipItemButton.SetActive(false);
 
+ 
+        if(item.GetType().IsSubclassOf(typeof(EquipementData))) 
+        {   
+            if (newItemInventory.GetType() == typeof(EquipementInventory) || 
+                newItemInventory.GetType() == typeof(ActionInventory))
+                unequipItemButton.SetActive(true);
+            else
+                equipItemButton.SetActive(true);
+        }
         else if(item.GetType() == typeof(ConsummableData)) 
-        {
             useItemButton.SetActive(true);
-            equipItemButton.SetActive(false);
-        }
 
-        itemInventory = newItemInventory;
+        currentItemInventory = newItemInventory;
         actionPanel.transform.position = slotPosition;
         actionPanel.SetActive(true);
     }
@@ -77,7 +82,7 @@ public class ItemActionSystem : MonoBehaviour
     public void UseActionButton() 
     {
         playerStats.consumeItem(((ConsummableData) itemDataCurrentlySelected).consumableEffects);
-        itemInventory.RemoveItem(itemDataCurrentlySelected);
+        currentItemInventory.RemoveItem(itemDataCurrentlySelected);
         CloseActionPanel();
     }
 
@@ -86,12 +91,30 @@ public class ItemActionSystem : MonoBehaviour
             (itemDataCurrentlySelected.GetType() ==typeof(ToolData)))
         {
              if(ActionInventory.instance.AddItem(itemDataCurrentlySelected))
-                itemInventory.RemoveItem(itemDataCurrentlySelected);
+                currentItemInventory.RemoveItem(itemDataCurrentlySelected);
         }
         if (itemDataCurrentlySelected.GetType() == typeof(ArmorData))
         {
             if(EquipementInventory.instance.AddItem(itemDataCurrentlySelected))
-                itemInventory.RemoveItem(itemDataCurrentlySelected);
+                currentItemInventory.RemoveItem(itemDataCurrentlySelected);
+        }
+
+        CloseActionPanel();
+    }
+
+    public void UnequipActionButton() {
+        if(MainInventory.instance.AddItem(itemDataCurrentlySelected))
+        {
+            if(itemDataCurrentlySelected.GetType() == typeof(WeaponData) || 
+                itemDataCurrentlySelected.GetType() == typeof(ToolData))
+            {
+                    currentItemInventory.RemoveItem(itemDataCurrentlySelected);
+                
+            }
+            else if (itemDataCurrentlySelected.GetType() == typeof(ArmorData))
+            {
+                    currentItemInventory.RemoveItem(itemDataCurrentlySelected);    
+            }
         }
 
         CloseActionPanel();
@@ -103,13 +126,13 @@ public class ItemActionSystem : MonoBehaviour
         GameObject instantiatedItem = Instantiate(itemDataCurrentlySelected.prefab, parentSceneItems);
         instantiatedItem.transform.position = dropPoint.position;
         instantiatedItem.transform.SetParent(parentSceneItems, false);
-        itemInventory.RemoveItem(itemDataCurrentlySelected);
+        currentItemInventory.RemoveItem(itemDataCurrentlySelected);
         CloseActionPanel();
     }
 
     public void DestroyActionButton() 
     {
-        itemInventory.RemoveItem(itemDataCurrentlySelected);
+        currentItemInventory.RemoveItem(itemDataCurrentlySelected);
         CloseActionPanel();
     
     }

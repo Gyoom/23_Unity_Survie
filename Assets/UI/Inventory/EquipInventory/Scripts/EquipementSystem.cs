@@ -99,12 +99,14 @@ public class EquipementSystem : MonoBehaviour
         foreach(GameObject visual in equipedArmor.defaultVisuals)
             visual.SetActive(false);
         
-        SkinnedMeshRenderer meshRenderer =  equipedArmor.gameobjectVisual.GetComponent<SkinnedMeshRenderer>();
+        SkinnedMeshRenderer meshRenderer = equipedArmor.gameobjectVisual.GetComponent<SkinnedMeshRenderer>();
         meshRenderer.sharedMesh = armorToEquip.visual;
         meshRenderer.material = armorToEquip.material;
+
+        equipedArmor.data = armorToEquip;
         playerStats.currentArmorPoint += armorToEquip.armorPoints;
-        
         equipedArmor.equiped = true;
+
         return true;
     }
 

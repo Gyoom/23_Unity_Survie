@@ -16,6 +16,9 @@ public class CraftingSystem : MonoBehaviour
      private KeyCode openPanelCraftInput;
 
     [SerializeField]
+    protected UIManager uIManager;
+
+    [SerializeField]
     private GameObject craftingPanel;
 
     [HideInInspector]
@@ -49,12 +52,14 @@ public class CraftingSystem : MonoBehaviour
         craftingPanel.SetActive(true);
         craftPanelIsOpen = true;
         UpdateDisplayedRecipes();
+        uIManager.PanelStatusUpdate();
     }
 
     public void ClosePanel() 
     {
         craftingPanel.SetActive(false);
         craftPanelIsOpen = false;
+        uIManager.PanelStatusUpdate();
     }
 
     public void UpdateDisplayedRecipes()

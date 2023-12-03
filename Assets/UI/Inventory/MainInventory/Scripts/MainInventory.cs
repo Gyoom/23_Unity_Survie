@@ -53,6 +53,7 @@ public class MainInventory : AbstractInventory
     {
         inventoryPanel.SetActive(true);
         inventoryIsOpen = true;
+        uIManager.PanelStatusUpdate();
     }
 
     public void CloseInventory() 
@@ -62,6 +63,7 @@ public class MainInventory : AbstractInventory
         ToolUISystem.instance.HideTip();
         ToolUISystem.instance.HideTranfert();
         inventoryIsOpen = false;
+         uIManager.PanelStatusUpdate();
     }
 
     public override void RefreshContent() 

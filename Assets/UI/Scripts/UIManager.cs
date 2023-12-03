@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -47,6 +48,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         defaultHorizontalAimingSpeed = playerCameraScript.horizontalAimingSpeed;
         defaultVerticalAimingSpeed = playerCameraScript.verticalAimingSpeed;
 
@@ -58,17 +60,19 @@ public class UIManager : MonoBehaviour
         breakPanel.SetActive(false);
     }
 
-    void Update()
+    public void PanelStatusUpdate()
     {
         // camerz freeze
-        if(IsPanelOpen() && !aimBehaviourBasic.aim)
+        if(IsPanelOpen())
         {
+            Cursor.lockState = CursorLockMode.None;
             atleastOneOpenPanel = true;
             playerCameraScript.horizontalAimingSpeed = 0;
             playerCameraScript.verticalAimingSpeed = 0;
         } 
         else
         {
+            Cursor.lockState = CursorLockMode.Locked;
             atleastOneOpenPanel = false;
             playerCameraScript.horizontalAimingSpeed = defaultHorizontalAimingSpeed;
             playerCameraScript.verticalAimingSpeed = defaultVerticalAimingSpeed;

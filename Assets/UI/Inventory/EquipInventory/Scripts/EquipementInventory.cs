@@ -101,13 +101,13 @@ public class EquipementInventory : AbstractInventory
         return true;
     }
 
-    public override bool AddItem (ItemData armorDataToAdd)
+    public override bool AddItem (ItemData armorToAdd)
     {
         int armorTypeSlotindex = -1;
 
         for (int i = 0; i < slots.Length; i++)
         {
-            if (((EquipementSlot) slots[i]).armorType == ((ArmorData) armorDataToAdd).armorType)
+            if (((EquipementSlot) slots[i]).armorType == ((ArmorData) armorToAdd).armorType)
             {
                 armorTypeSlotindex = i;
                 break;
@@ -120,16 +120,29 @@ public class EquipementInventory : AbstractInventory
             return false;
         }
 
-        if(!CheckBeforeAddItem(armorDataToAdd, armorTypeSlotindex))
+        if(!CheckBeforeAddItem(armorToAdd, armorTypeSlotindex))
             return false;
 
-        content[armorTypeSlotindex].itemData = armorDataToAdd;
+        content[armorTypeSlotindex].itemData = armorToAdd;
         content[armorTypeSlotindex].count = 1;
 
-        equipementSystem.EquipArmor((ArmorData) armorDataToAdd);
+        equipementSystem.EquipArmor((ArmorData) armorToAdd);
         // add in slot
         RefreshContent();
         return true;
+    }
+
+    public override ItemInInventory RemoveItem (ItemData armorToRemove)
+    {
+        ItemInInventory itemInInventory = content.Where(i => i != null && i.itemData == armorToRemove).FirstOrDefault();
+        ItemInInventory removedItem = new ItemInInventory {itemData = itemInInventory.itemData, count = itemInInventory.count};
+
+        itemInInventory.itemData = null;
+        itemInInventory.count = -1;
+        equipementSystem.DesequipArmor(((ArmorData) armorToRemove).armorType);
+        RefreshContent();
+    
+        return removedItem;
     }
 }
 

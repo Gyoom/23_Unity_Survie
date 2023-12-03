@@ -25,6 +25,9 @@ public class BreakMenu : MonoBehaviour
     [SerializeField]
     private FlyBehaviour flyBehaviour;
 
+    [SerializeField]
+    protected UIManager uIManager;
+
     [Header("MAIN MENU REFERENCES")]
 
     [SerializeField]
@@ -134,6 +137,7 @@ public class BreakMenu : MonoBehaviour
             Time.timeScale = breakMenuIsOpen ? 0 : 1;
 
             mainCameraScript.enabled = !breakMenuIsOpen;
+            uIManager.PanelStatusUpdate();
         }
     }
 
